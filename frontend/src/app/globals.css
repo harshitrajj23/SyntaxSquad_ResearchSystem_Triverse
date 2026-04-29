@@ -59,6 +59,15 @@ body {
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
+  .glass-elevated {
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    backdrop-filter: blur(40px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(0, 174, 239, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
   .neon-glow {
     box-shadow: 0 0 15px rgba(0, 174, 239, 0.5), 0 0 30px rgba(0, 174, 239, 0.3);
   }
@@ -116,6 +125,11 @@ body {
   to { stroke-dashoffset: 0; }
 }
 
+@keyframes blink-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -141,4 +155,8 @@ body {
 
 .animate-counter-orbit {
   animation: counter-orbit 25s linear infinite;
+}
+
+.typewriter-caret {
+  animation: blink-caret 1.06s step-end infinite;
 }
