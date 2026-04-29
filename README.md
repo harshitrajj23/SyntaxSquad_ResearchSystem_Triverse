@@ -1,36 +1,264 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+#  ThinkLoop — AI Research Chat System
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ThinkLoop is an advanced AI-powered conversational platform designed to go beyond traditional chatbots. It combines intelligent response modes, contextual memory, and research-oriented outputs to create a **next-generation research assistant system**.
+
+---
+
+##  Overview
+
+ThinkLoop enables users to interact with AI across multiple cognitive modes—ranging from simple explanations to structured research outputs—while maintaining persistent conversations and personalized recommendations.
+
+---
+
+##  Key Features
+
+###  Multi-Mode AI Interaction
+
+| Mode            | Purpose                              |
+| --------------- | ------------------------------------ |
+|    **Simple**   | Beginner-friendly explanations       |
+|    **Build**    | Code generation + system design      |
+|    **Explore**  | Concept expansion + related ideas    |
+|    **Research** | Structured, citation-style responses |
+
+---
+
+###  Research Mode
+
+* Academic-style structured answers
+* Citation-ready UI (future real-paper integration)
+* Designed for:
+
+  * arXiv integration
+  * Semantic Scholar APIs
+* Built-in response rating system (UI layer)
+
+---
+
+###  Persistent Chat System
+
+* Session-based conversations
+* Each chat includes:
+
+  * `chat_id`
+  * Message history
+* Dedicated **history page** for navigation
+
+---
+
+###  Smart Recommendations Engine
+
+* Context-aware suggestions
+* Related queries panel
+* Inspired by modern search UX (Perplexity / Google AI)
+
+---
+
+###  User Memory System
+
+* Tracks user preferences and interests
+* Stored in Supabase (`user_profiles`)
+* Dynamically influences AI responses
+
+---
+
+###  Authentication
+
+* Email-based authentication via Supabase
+* Secure session management using client SDK
+
+---
+
+##  Tech Stack
+
+### Frontend
+
+* **Next.js 16** (App Router)
+* React
+* Tailwind CSS
+* Framer Motion
+
+### Backend
+
+* **Python (FastAPI)**
+* Custom AI service layer
+
+### Database
+
+* **Supabase (PostgreSQL)**
+
+---
+
+##  Project Structure
+
+```
+src/
+ ├── app/
+ │   ├── chat/[chat_id]/
+ │   ├── history/
+ │   ├── auth/
+ ├── components/
+ ├── context/
+ ├── services/
+ ├── lib/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##  Setup Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1️ Clone Repository
 
-## Learn More
+```bash
+git clone <repo-url>
+cd ThinkLoop
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2️ Install Frontend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+npm run dev
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3️Backend Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+cd ml-service
+pip install -r requirements.txt
+uvicorn app:app --reload
+```
+
+---
+
+### 4️ Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+```
+
+---
+
+##  Database Schema (Supabase)
+
+### chats
+
+```sql
+chat_id UUID PRIMARY KEY
+user_id TEXT
+created_at TIMESTAMP
+```
+
+---
+
+### messages
+
+```sql
+id UUID PRIMARY KEY
+chat_id UUID
+role TEXT
+content TEXT
+created_at TIMESTAMP
+```
+
+---
+
+### user_profiles
+
+```sql
+user_id TEXT PRIMARY KEY
+interests JSONB
+expertise_level TEXT
+updated_at TIMESTAMP
+```
+
+---
+
+##  Known Issue & Fix
+
+###  Supabase Auth Lock Error
+
+**Error:**
+
+```
+Lock "auth-token" was released because another request stole it
+```
+
+**Cause:**
+
+* Multiple `getUser()` calls triggering race conditions
+
+**Fix:**
+
+* Use a global auth state
+  **OR**
+* Replace with:
+
+```js
+supabase.auth.getSession()
+```
+
+---
+
+##  Roadmap / Future Improvements
+
+* Real research paper integration (arXiv, Semantic Scholar)
+* Embedding-based semantic search
+* Paper relevance scoring
+* Advanced personalization (memory weighting)
+* Streaming AI responses
+
+---
+
+##  Test Queries
+
+Try these to explore different modes:
+
+* *What is machine learning?*
+* *Build a REST API in Node.js*
+* *Explain transformers in deep learning*
+
+Switch modes to observe behavior differences.
+
+---
+
+##  Vision
+
+ThinkLoop is not just a chatbot.
+
+It is evolving into a **full-scale AI Research Assistant System** that integrates:
+
+* Intelligent reasoning
+* Knowledge grounding
+* Interactive user experience
+
+---
+
+##  Author
+
+**Harshit Raj**
+
+---
+
+##  Support
+
+If you find this project useful:
+
+ Star the repository
+ Share feedback
+ Contribute to future improvements
+
+---
+
+
+
+
