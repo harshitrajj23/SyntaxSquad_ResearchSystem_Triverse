@@ -246,6 +246,10 @@ It is evolving into a **full-scale AI Research Assistant System** that integrate
 ##  Author
 
 **Harshit Raj**
+**Poorvik A**
+**Alisha Anthony**
+**Anish Madhyastha**
+
 
 ---
 
